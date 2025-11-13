@@ -99,16 +99,29 @@ class CaptchaManager:
         try:
             # 尝试使用系统字体（进一步增大字体大小）
             font_size = 80  # 从64增加到80，字体更大更清晰
-            try:
+            font = None
+            
+            # 按优先级尝试加载字体
+            font_paths = [
                 # macOS
-                font = ImageFont.truetype("/System/Library/Fonts/Helvetica.ttc", font_size)
-            except:
+                "/System/Library/Fonts/Helvetica.ttc",
+                # Linux (包括 Docker Alpine)
+                "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf",
+                "/usr/share/fonts/TTF/DejaVuSans-Bold.ttf",
+                # 其他可能的路径
+                "/usr/share/fonts/dejavu/DejaVuSans-Bold.ttf",
+            ]
+            
+            for font_path in font_paths:
                 try:
-                    # Linux
-                    font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", font_size)
+                    font = ImageFont.truetype(font_path, font_size)
+                    break
                 except:
-                    # Windows 或其他
-                    font = ImageFont.load_default()
+                    continue
+            
+            # 如果所有路径都失败，使用默认字体
+            if font is None:
+                font = ImageFont.load_default()
         except:
             font = ImageFont.load_default()
         

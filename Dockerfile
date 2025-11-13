@@ -5,8 +5,13 @@ WORKDIR /app
 COPY locale /app/locale
 COPY requirements.txt /tmp/requirements.txt
 
-RUN apk add --no-cache ca-certificates && \
-    update-ca-certificates
+# 安装字体支持（用于生成验证码图片）
+RUN apk add --no-cache \
+    ca-certificates \
+    ttf-dejavu \
+    fontconfig \
+    && update-ca-certificates \
+    && fc-cache -f
 
 RUN pip install --no-cache-dir -r /tmp/requirements.txt \
     && rm -f /tmp/requirements.txt \
