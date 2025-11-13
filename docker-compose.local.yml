@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  betterforward:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    environment:
+      - TOKEN=${TOKEN:-your_bot_token_here}
+      - GROUP_ID=${GROUP_ID:-your_group_id_here}
+      - LANGUAGE=${LANGUAGE:-zh_CN}
+      - TG_API=${TG_API:-}
+      - WORKER=${WORKER:-2}
+    volumes:
+      - ./data:/app/data
+    container_name: betterforward
+

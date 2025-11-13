@@ -1,0 +1,41 @@
+# Git
+.git
+.gitignore
+.github
+
+# Documentation
+docs
+*.md
+LICENSE
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Python
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+*.egg
+*.egg-info
+dist
+build
+
+# Data (will be mounted as volume)
+data
+
+# Docker
+docker-compose.yml
+Dockerfile
+.dockerignore
+
