@@ -86,19 +86,19 @@ class CaptchaManager:
         code = ''.join([random.choice(chars) for _ in range(code_length)])
         
         # 增加图片尺寸和边距，确保字符旋转后不会超出边界
-        # 每个字符预留更多空间（60像素），加上左右边距（各40像素）
-        padding = 40  # 左右边距
-        char_spacing = 60  # 每个字符的宽度
+        # 每个字符预留更多空间（80像素），加上左右边距（各50像素）
+        padding = 50  # 左右边距
+        char_spacing = 80  # 每个字符的宽度
         width = padding * 2 + code_length * char_spacing
-        height = 100  # 增加高度，确保旋转后的字符不超出
+        height = 140  # 增加高度，确保旋转后的字符不超出
         
         image = Image.new('RGB', (width, height), color=(255, 255, 255))
         draw = ImageDraw.Draw(image)
         
         # 尝试加载字体，如果失败则使用默认字体
         try:
-            # 尝试使用系统字体
-            font_size = 42
+            # 尝试使用系统字体（增大字体大小）
+            font_size = 64  # 从42增加到64，字体更大更清晰
             try:
                 # macOS
                 font = ImageFont.truetype("/System/Library/Fonts/Helvetica.ttc", font_size)
@@ -127,9 +127,9 @@ class CaptchaManager:
             draw.point((x, y), fill=(random.randint(0, 255), random.randint(0, 255), random.randint(0, 255)))
         
         # 绘制验证码文字（每个字符位置略有偏移，增加难度）
-        # 字符临时图片尺寸（增大以确保旋转后不超出）
-        char_img_width = 50
-        char_img_height = 60
+        # 字符临时图片尺寸（增大以确保旋转后不超出，适应更大的字体）
+        char_img_width = 75  # 从50增加到75
+        char_img_height = 90  # 从60增加到90
         
         for i, char in enumerate(code):
             # 计算字符中心位置（在安全区域内）
@@ -137,7 +137,7 @@ class CaptchaManager:
             char_center_y = height // 2
             
             # 随机位置偏移（限制在安全范围内）
-            max_offset = 8
+            max_offset = 10  # 稍微增加偏移范围
             x_offset = random.randint(-max_offset, max_offset)
             y_offset = random.randint(-max_offset, max_offset)
             
@@ -146,8 +146,8 @@ class CaptchaManager:
             y = char_center_y - char_img_height // 2 + y_offset
             
             # 确保位置在安全范围内
-            x = max(10, min(x, width - char_img_width - 10))
-            y = max(10, min(y, height - char_img_height - 10))
+            x = max(15, min(x, width - char_img_width - 15))
+            y = max(15, min(y, height - char_img_height - 15))
             
             # 随机颜色
             color = (random.randint(0, 100), random.randint(0, 100), random.randint(0, 100))
@@ -155,11 +155,11 @@ class CaptchaManager:
             # 随机旋转角度
             angle = random.randint(-15, 15)
             
-            # 创建单个字符的临时图片（增大尺寸）
+            # 创建单个字符的临时图片（增大尺寸以适应更大的字体）
             char_img = Image.new('RGBA', (char_img_width, char_img_height), (255, 255, 255, 0))
             char_draw = ImageDraw.Draw(char_img)
-            # 字符在临时图片中居中
-            char_draw.text((char_img_width // 2 - 10, char_img_height // 2 - 15), char, fill=color, font=font)
+            # 字符在临时图片中居中（调整位置以适应更大的字体）
+            char_draw.text((char_img_width // 2 - 15, char_img_height // 2 - 20), char, fill=color, font=font)
             
             # 旋转字符
             if angle != 0:
