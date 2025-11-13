@@ -4,7 +4,7 @@
 
 为更好地转发 Telegram 消息而设计。
 
-使用“话题”功能实现更好的Telegram PM Bot（私聊机器人）。
+使用“话题”功能实现更好的 Telegram PM Bot（私聊机器人）。
 
 将用户的消息转发到群组中，每个用户对应一个主题。
 
@@ -16,8 +16,9 @@
 - 多语言：支持多种语言，包括英语和中文。
 - 自动回复：自动回复用户的消息，回复内容可预设。支持正则表达式匹配关键词。允许设置自动回复的生效时间。
 - 验证码：增加了人机验证功能，以确保用户是真人操作，从而有效防止垃圾信息（SPAM）的发送。
-- 垃圾消息防御：基于关键词的智能垃圾消息过滤系统，自动识别并隔离垃圾内容。支持可扩展的检测器接口，可轻松对接其他检测方法（如AI模型、外部API等）。
+- 垃圾消息防御：基于关键词的智能垃圾消息过滤系统，自动识别并隔离垃圾内容。支持可扩展的检测器接口，可轻松对接其他检测方法（如 AI 模型、外部 API 等）。
 - 广播消息：允许管理员一次性向所有用户发送消息。
+- 新增了图片验证码的功能
 
 ## 使用方法
 
@@ -47,15 +48,16 @@
 1. 下载 `docker-compose.yml` 文件：
 
 ```bash
-wget https://github.com/SideCloudGroup/BetterForward/raw/refs/heads/main/docker-compose.yml
+wget https://github.com/TobyLinn/BetterForward/blob/main/docker-compose.yml
 ```
 
 2. 编辑 `docker-compose.yml` 文件并替换占位符值：
-    - `your_bot_token_here` 替换为您的实际机器人令牌
-    - `your_group_id_here` 替换为您的实际群组 ID
-    - `zh_CN` 替换为您偏好的语言 (`en_US`, `zh_CN`, 或 `ja_JP`)
-    - `TG_API` 留空或设置您的自定义 API 端点
-    - `WORKER=2` 设置工作线程数量（默认：2）
+
+   - `your_bot_token_here` 替换为您的实际机器人令牌
+   - `your_group_id_here` 替换为您的实际群组 ID
+   - `zh_CN` 替换为您偏好的语言 (`en_US`, `zh_CN`, 或 `ja_JP`)
+   - `TG_API` 留空或设置您的自定义 API 端点
+   - `WORKER=2` 设置工作线程数量（默认：2）
 
 3. 使用 Docker Compose 运行：
 
@@ -75,7 +77,7 @@ docker run -d --name betterforward \
     -e WORKER=2 \
     -v /path/to/data:/app/data \
     --restart unless-stopped \
-    ghcr.io/sidecloudgroup/betterforward:latest
+    dickl0/betterforward:latest
 ```
 
 ## 自定义 API
@@ -133,6 +135,6 @@ BetterForward 内置了智能垃圾消息过滤系统，帮助你有效管理和
 
 ## 交流社区
 
-- Telegram频道 [@betterforward](https://t.me/betterforward)
+- Telegram 频道 [@betterforward](https://t.me/betterforward)
 
 请使用 `issues` 报告错误和提出功能请求。
