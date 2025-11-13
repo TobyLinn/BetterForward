@@ -419,6 +419,10 @@ msgid "Math Captcha"
 msgstr "数学验证码"
 
 #: src/handlers/admin_handler.py:534
+msgid "Image Captcha"
+msgstr "图片验证码"
+
+#: src/handlers/admin_handler.py:535
 msgid "Button Captcha"
 msgstr "按钮验证码"
 
@@ -922,6 +926,11 @@ msgid "User {} entered an incorrect answer"
 msgstr "用户{}提交了错误的验证码"
 
 #: src/handlers/message_handler.py:230
+#, python-brace-format
+msgid "User {} captcha verification failed: {}"
+msgstr "用户{}验证码验证失败：{}"
+
+#: src/handlers/message_handler.py:230
 msgid "The answer is incorrect, please try again"
 msgstr "回答不正确，请重新输入"
 
@@ -970,9 +979,9 @@ msgstr "未找到对应会话，请手动删除当前话题"
 msgid "Invalid regular expression: {}"
 msgstr "正则表达式{}不合法"
 
-#: src/utils/captcha.py:34
+#: src/utils/captcha.py:34 src/utils/captcha.py:337
 msgid "Please click the button to verify."
-msgstr "请点击按钮以完成验证"
+msgstr "请点击按钮进行验证。"
 
 #: src/utils/message_queue.py:64
 #, python-brace-format
@@ -1055,3 +1064,89 @@ msgstr "已清除所有垃圾检测器"
 
 #~ msgid "(edited)"
 #~ msgstr "(已编辑)"
+
+#: src/utils/captcha.py:284
+msgid "You have failed too many times. Please try again in {} seconds."
+msgstr "您失败次数过多，请在 {} 秒后重试。"
+
+#: src/utils/captcha.py:298
+msgid "⚠️ Anti-automation: Please wait at least {} seconds before answering."
+msgstr "⚠️ 反自动化：请在至少 {} 秒后再回答。"
+
+#: src/utils/captcha.py:314
+#, python-brace-format
+msgid "Please enter the code shown in the image (case-sensitive, {} characters).\n\n⚠️ Anti-automation: Please wait at least {} seconds before answering."
+msgstr "请输入图片中显示的验证码（区分大小写，{} 个字符）。\n\n⚠️ 反自动化：请在至少 {} 秒后再回答。"
+
+#: src/utils/captcha.py:334
+msgid "Click to verify"
+msgstr "点击验证"
+
+#: src/handlers/admin_handler.py:546
+msgid "Clear All Verification Records"
+msgstr "清除所有验证记录"
+
+#: src/handlers/admin_handler.py:577
+msgid ""
+"⚠️ Warning: This will delete ALL verification records!\n"
+"\n"
+"This includes:\n"
+"• All verified users\n"
+"• All verification history\n"
+"\n"
+"All users will need to verify again. Are you sure?"
+msgstr ""
+"⚠️ 警告：这将删除所有验证记录！\n"
+"\n"
+"包括：\n"
+"• 所有已验证用户\n"
+"• 所有验证历史记录\n"
+"\n"
+"所有用户都需要重新验证。确定要继续吗？"
+
+#: src/handlers/admin_handler.py:590
+msgid "Error: Captcha manager not available"
+msgstr "错误：验证码管理器不可用"
+
+#: src/handlers/admin_handler.py:602
+#, python-brace-format
+msgid ""
+"✅ All verification records cleared!\n"
+"\n"
+"• Verified users removed: {}\n"
+"• Verification history removed: {}"
+msgstr ""
+"✅ 所有验证记录已清除！\n"
+"\n"
+"• 已移除已验证用户：{}\n"
+"• 已移除验证历史记录：{}"
+
+#: src/handlers/admin_handler.py:608
+#, python-brace-format
+msgid "All verification records cleared by admin: {} verified users, {} history records"
+msgstr "管理员已清除所有验证记录：{} 个已验证用户，{} 条历史记录"
+
+#: src/handlers/admin_handler.py:611
+#, python-brace-format
+msgid "Failed to clear verification records: {}"
+msgstr "清除验证记录失败：{}"
+
+#: src/handlers/admin_handler.py:612
+#, python-brace-format
+msgid "❌ Failed to clear verification records: {}"
+msgstr "❌ 清除验证记录失败：{}"
+
+#: src/utils/captcha.py:426 src/utils/captcha.py:463
+#, python-brace-format
+msgid "Incorrect answer. {} attempts remaining. A new captcha will be generated."
+msgstr "答案错误，还剩 {} 次尝试机会。将自动生成新的验证码。"
+
+#: src/utils/captcha.py:482
+#, python-brace-format
+msgid "Invalid answer format. Please enter a number. {} attempts remaining. A new captcha will be generated."
+msgstr "答案格式无效，请输入数字。还剩 {} 次尝试机会。将自动生成新的验证码。"
+
+#: src/handlers/message_handler.py:255
+msgid "A new captcha has been generated. Please solve the following question:\n"
+msgstr "已生成新的验证码，请回答以下问题：\n"
+

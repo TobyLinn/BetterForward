@@ -46,3 +46,26 @@ wheels/
 # 临时文件
 *.tmp
 *.temp
+
+# 测试文件
+test_*.py
+test_*.png
+test_*.jpg
+test_*.jpeg
+verify_*.py
+
+# 本地运行脚本（可选，如果不想上传）
+run_local.sh
+run_with_env.sh
+setup_env.sh
+setup-git.sh
+
+# Python 虚拟环境
+venv/
+env/
+ENV/
+.venv/
+.env/
+
+# 本地配置文件
+*.local

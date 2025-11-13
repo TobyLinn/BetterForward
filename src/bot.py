@@ -74,7 +74,8 @@ class TGBot:
             self.bot, self.group_id, db_path, self.cache,
             self.database, self.auto_response_manager,
             spam_keyword_manager=self.keyword_detector,
-            bot_instance=self
+            bot_instance=self,
+            captcha_manager=self.captcha_manager
         )
         self.callback_handler = CallbackHandler(
             self.bot, self.group_id, self.admin_handler,

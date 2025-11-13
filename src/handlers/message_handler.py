@@ -229,6 +229,32 @@ class MessageHandler:
             if not success:
                 logger.info(_("User {} captcha verification failed: {}").format(message.from_user.id, error_msg))
                 self.bot.send_message(message.chat.id, error_msg)
+                
+                # 检查是否还有剩余尝试次数，如果有则重新生成验证码
+                captcha_data = self.cache.get(f"captcha_{message.from_user.id}")
+                if captcha_data is None:
+                    # 验证码已过期或被删除，重新生成
+                    captcha_type = self.cache.get("setting_captcha")
+                    question, new_error_msg = self.captcha_manager.generate_captcha(message.from_user.id, captcha_type, db)
+                    
+                    if new_error_msg:
+                        # 用户被锁定
+                        self.bot.send_message(message.chat.id, new_error_msg)
+                        return False
+                    
+                    match captcha_type:
+                        case "button":
+                            # 按钮验证已在 generate_captcha 中发送消息
+                            return False
+                        case "image":
+                            # 图片验证已在 generate_captcha 中发送图片
+                            return False
+                        case "math":
+                            if question:
+                                self.bot.send_message(message.chat.id,
+                                                      _("A new captcha has been generated. Please solve the following question:\n") + question)
+                            return False
+                
                 return False
             logger.info(_("User {} passed the captcha").format(message.from_user.id))
             self.bot.send_message(message.chat.id, _("Verification successful, you can now send messages"))
@@ -249,6 +275,9 @@ class MessageHandler:
             match captcha_type:
                 case "button":
                     # 按钮验证已在 generate_captcha 中发送消息
+                    return False
+                case "image":
+                    # 图片验证已在 generate_captcha 中发送图片
                     return False
                 case "math":
                     if question:

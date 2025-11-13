@@ -131,6 +131,10 @@ class CallbackHandler:
                 self.admin_handler.captcha_settings_menu(call.message)
             case "set_captcha":
                 self.admin_handler.set_captcha(call.message, data["value"])
+            case "clear_verification_records":
+                self.admin_handler.clear_verification_records_confirm(call.message)
+            case "confirm_clear_verification":
+                self.admin_handler.clear_verification_records(call.message)
             case "broadcast_message":
                 self.admin_handler.broadcast_message(call.message)
             case "confirm_broadcast":
