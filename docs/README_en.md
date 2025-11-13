@@ -1,6 +1,8 @@
 # BetterForward
 
-[中文README](README.md)
+[中文 README](README.md)
+
+> **Note**: This project is a Fork version based on [SideCloudGroup/BetterForward](https://github.com/SideCloudGroup/BetterForward), with enhancements and improvements on top of the original project.
 
 Designed for better message forwarding in Telegram.
 
@@ -20,6 +22,20 @@ Forward users' messages to topics in the group. Each user corresponds to a topic
   of spam messages.
 - Spam Protection: Intelligent spam filtering system with keyword-based detection. Supports extensible detector interface for integrating AI models, external APIs, and custom detection methods.
 - Broadcast Message: Allows admins to send a message to all users at once.
+
+## Project Source
+
+- **Original Project**: [SideCloudGroup/BetterForward](https://github.com/SideCloudGroup/BetterForward)
+- **Fork Version**: [TobyLinn/BetterForward](https://github.com/TobyLinn/BetterForward)
+
+## Main Improvements
+
+This Fork version adds the following enhancements on top of the original features:
+
+- ✅ **Enhanced Image Captcha**: Larger font size (80px) for better readability
+- ✅ **Auto-regenerate Captcha**: Automatically generates new captcha after failed attempts
+- ✅ **Docker Font Support**: Fixed font display issues in Docker environments
+- ✅ **Complete Docker Hub Automation**: GitHub Actions automatically builds and pushes images
 
 ## Usage
 
@@ -50,15 +66,16 @@ We welcome contributions to add more languages.
 1. Download the `docker-compose.yml` file:
 
 ```bash
-wget https://github.com/SideCloudGroup/BetterForward/raw/refs/heads/main/docker-compose.yml
+wget https://github.com/tobylinn/BetterForward/raw/refs/heads/main/docker-compose.yml
 ```
 
 2. Edit the `docker-compose.yml` file and replace the placeholder values:
-    - `your_bot_token_here` with your actual bot token
-    - `your_group_id_here` with your actual group ID
-    - `zh_CN` with your preferred language (`en_US`, `zh_CN`, or `ja_JP`)
-    - Leave `TG_API` empty or set your custom API endpoint
-    - `WORKER=2` sets the number of worker threads (default: 2)
+
+   - `your_bot_token_here` with your actual bot token
+   - `your_group_id_here` with your actual group ID
+   - `zh_CN` with your preferred language (`en_US`, `zh_CN`, or `ja_JP`)
+   - Leave `TG_API` empty or set your custom API endpoint
+   - `WORKER=2` sets the number of worker threads (default: 2)
 
 3. Run with Docker Compose:
 
@@ -78,7 +95,7 @@ docker run -d --name betterforward \
     -e WORKER=2 \
     -v /path/to/data:/app/data \
     --restart unless-stopped \
-    ghcr.io/sidecloudgroup/betterforward:latest
+    dickl0/betterforward:latest
 ```
 
 If you need to use a custom API, you can set the environment variable `TG_API`. Leave it empty or unset to use the

@@ -544,8 +544,6 @@ class AdminHandler:
             markup.add(types.InlineKeyboardButton(
                 icon + key,
                 callback_data=json.dumps({"action": "set_captcha", "value": value})))
-        markup.add(types.InlineKeyboardButton("🗑️" + _("Clear All Verification Records"),
-                                              callback_data=json.dumps({"action": "clear_verification_records"})))
         markup.add(types.InlineKeyboardButton("⬅️" + _("Back"),
                                               callback_data=json.dumps({"action": "menu"})))
         self.bot.send_message(text=_("Captcha Settings") + "\n",
@@ -562,55 +560,6 @@ class AdminHandler:
                                               callback_data=json.dumps({"action": "menu"})))
         self.bot.edit_message_text(_("Captcha settings updated"),
                                    message.chat.id, message.message_id, reply_markup=markup)
-
-    def clear_verification_records_confirm(self, message: Message):
-        """显示清除验证记录的确认对话框."""
-        if not self.check_valid_chat(message):
-            return
-        
-        markup = types.InlineKeyboardMarkup()
-        markup.add(types.InlineKeyboardButton("✅" + _("Confirm"),
-                                              callback_data=json.dumps({"action": "confirm_clear_verification"})))
-        markup.add(types.InlineKeyboardButton("❌" + _("Cancel"),
-                                              callback_data=json.dumps({"action": "captcha_settings"})))
-        self.bot.edit_message_text(
-            _("⚠️ Warning: This will delete ALL verification records!\n\n"
-              "This includes:\n"
-              "• All verified users\n"
-              "• All verification history\n\n"
-              "All users will need to verify again. Are you sure?"),
-            message.chat.id, message.message_id, reply_markup=markup)
-
-    def clear_verification_records(self, message: Message):
-        """清除所有验证记录."""
-        if not self.check_valid_chat(message):
-            return
-        
-        if not self.captcha_manager:
-            self.bot.edit_message_text(_("Error: Captcha manager not available"),
-                                      message.chat.id, message.message_id)
-            return
-        
-        try:
-            with sqlite3.connect(self.db_path) as db:
-                verified_count, history_count = self.captcha_manager.clear_all_verification_records(db)
-            
-            markup = types.InlineKeyboardMarkup()
-            markup.add(types.InlineKeyboardButton("⬅️" + _("Back"),
-                                                  callback_data=json.dumps({"action": "menu"})))
-            
-            result_msg = _("✅ All verification records cleared!\n\n"
-                          "• Verified users removed: {}\n"
-                          "• Verification history removed: {}").format(verified_count, history_count)
-            
-            self.bot.edit_message_text(result_msg,
-                                      message.chat.id, message.message_id, reply_markup=markup)
-            logger.info(_("All verification records cleared by admin: {} verified users, {} history records").format(
-                verified_count, history_count))
-        except Exception as e:
-            logger.error(_("Failed to clear verification records: {}").format(str(e)))
-            self.bot.edit_message_text(_("❌ Failed to clear verification records: {}").format(str(e)),
-                                      message.chat.id, message.message_id)
 
     # Time Zone Settings
     def time_zone_settings_menu(self, message: Message):

@@ -2,11 +2,27 @@
 
 [English README](README_en.md)
 
+> **注意**: 本项目是基于 [SideCloudGroup/BetterForward](https://github.com/SideCloudGroup/BetterForward) 的 Fork 版本，在原项目基础上进行了增强和改进。
+
 为更好地转发 Telegram 消息而设计。
 
-使用“话题”功能实现更好的 Telegram PM Bot（私聊机器人）。
+使用"话题"功能实现更好的 Telegram PM Bot（私聊机器人）。
 
 将用户的消息转发到群组中，每个用户对应一个主题。
+
+## 项目来源
+
+- **原项目**: [SideCloudGroup/BetterForward](https://github.com/SideCloudGroup/BetterForward)
+- **Fork 版本**: [TobyLinn/BetterForward](https://github.com/TobyLinn/BetterForward)
+
+## 主要改进
+
+本 Fork 版本在原有功能基础上添加了以下增强：
+
+- ✅ **增强的图片验证码**: 更大的字体（80px），更好的可读性
+- ✅ **自动重新生成验证码**: 验证失败后自动生成新的验证码
+- ✅ **Docker 字体支持**: 修复 Docker 环境中字体显示问题
+- ✅ **完整的 Docker Hub 自动化**: GitHub Actions 自动构建和推送镜像
 
 ## 特点
 

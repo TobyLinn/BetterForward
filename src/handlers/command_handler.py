@@ -47,8 +47,9 @@ class CommandHandler:
             default_message = self._get_setting('default_message')
             if default_message is None:
                 self.bot.send_message(message.chat.id,
-                                      _("I'm a bot that forwards messages, so please just tell me what you want to say.") + "\n" +
-                                      "Powered by [BetterForward](https://github.com/SideCloudGroup/BetterForward)",
+                                      _("I'm a bot that forwards messages, so please just tell me what you want to say.") + "\n\n" +
+                                      "Powered by [BetterForward](https://github.com/TobyLinn/BetterForward)\n" +
+                                      "Forked from [SideCloudGroup/BetterForward](https://github.com/SideCloudGroup/BetterForward)",
                                       parse_mode="Markdown",
                                       disable_web_page_preview=True)
             else:
