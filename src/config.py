@@ -8,6 +8,18 @@ import signal
 
 import telebot.apihelper
 
+# Read version from VERSION file
+def get_version():
+    """Get version from VERSION file."""
+    version_file = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "VERSION")
+    try:
+        with open(version_file, 'r', encoding='utf-8') as f:
+            return f.read().strip()
+    except FileNotFoundError:
+        return "1.0.0"
+
+VERSION = get_version()
+
 # Parse command-line arguments
 parser = argparse.ArgumentParser(description="BetterForward - Telegram message forwarding bot")
 parser.add_argument("-token", type=str, required=True, help="Telegram bot token")

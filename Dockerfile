@@ -1,7 +1,12 @@
 FROM python:3.12-alpine
 
+ARG VERSION=1.0.0
+LABEL version="${VERSION}"
+LABEL org.opencontainers.image.version="${VERSION}"
+
 WORKDIR /app
 
+COPY VERSION /app/VERSION
 COPY locale /app/locale
 COPY requirements.txt /tmp/requirements.txt
 

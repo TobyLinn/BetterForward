@@ -39,18 +39,34 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Read version from file
+        id: version
+        run: |
+          if [ -f VERSION ]; then
+            VERSION=$(cat VERSION)
+            echo "version=$VERSION" >> $GITHUB_OUTPUT
+            echo "Version: $VERSION"
+          else
+            echo "version=1.0.0" >> $GITHUB_OUTPUT
+            echo "Version file not found, using default: 1.0.0"
+          fi
+
       - name: Extract metadata (tags, labels) for Docker
         id: meta
         uses: docker/metadata-action@v5
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           tags: |
+            type=raw,value=${{ steps.version.outputs.version }}
+            type=raw,value=${{ steps.version.outputs.version }},enable={{is_default_branch}}
             type=ref,event=branch
             type=ref,event=pr
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}.{{minor}}
             type=sha,prefix={{branch}}-
             type=raw,value=latest,enable={{is_default_branch}}
+          labels: |
+            org.opencontainers.image.version=${{ steps.version.outputs.version }}
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
@@ -60,6 +76,8 @@ jobs:
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+          build-args: |
+            VERSION=${{ steps.version.outputs.version }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
           platforms: linux/amd64,linux/arm64
