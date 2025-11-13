@@ -64,7 +64,7 @@
 1. 下载 `docker-compose.yml` 文件：
 
 ```bash
-wget https://github.com/TobyLinn/BetterForward/blob/main/docker-compose.yml
+wget https://raw.githubusercontent.com/TobyLinn/BetterForward/refs/heads/main/docker-compose.yml
 ```
 
 2. 编辑 `docker-compose.yml` 文件并替换占位符值：
